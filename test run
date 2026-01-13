@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10K Monthly Giveaway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        .winner-text {
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .container-glow {
+            position: relative;
+        }
+
+        .container-glow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .timer-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-value {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .timer-label {
+            font-size: 0.6rem;
+            color: #444;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-6 text-center container-glow">
+
+    <!-- Top Display Section -->
+    <div class="mb-8">
+        <h1 id="winner-name" class="winner-text text-8xl md:text-[12rem] font-black uppercase tracking-tighter leading-none">
+            N/A
+        </h1>
+        <p id="prize-amount" class="text-2xl md:text-3xl font-light tracking-[0.6em] text-white mt-8">
+            10,000 ROBUX
+        </p>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div id="countdown" class="flex gap-8 md:gap-12 mb-12">
+        <div class="timer-unit">
+            <span id="days" class="timer-value">00</span>
+            <span class="timer-label">Days</span>
+        </div>
+        <div class="timer-unit">
+            <span id="hours" class="timer-value">00</span>
+            <span class="timer-label">Hours</span>
+        </div>
+        <div class="timer-unit">
+            <span id="minutes" class="timer-value">00</span>
+            <span class="timer-label">Mins</span>
+        </div>
+        <div class="timer-unit">
+            <span id="seconds" class="timer-value">00</span>
+            <span class="timer-label">Secs</span>
+        </div>
+    </div>
+
+    <!-- Description Sentence -->
+    <div class="max-w-3xl px-4">
+        <p class="text-gray-600 text-xs md:text-sm tracking-[0.25em] leading-relaxed uppercase">
+            Monthly Donations! I Give Away 10k Robux To A Random Listed User. Keep An Eye on The Timer, 3 Days Before Launch I Will Have The Winner Listed.
+        </p>
+    </div>
+
+    <script>
+        function updateTimer() {
+            const now = new Date();
+            
+            // Get the first day of the NEXT month
+            let nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+            
+            const diff = nextMonth - now;
+
+            // Calculations for days, hours, minutes and seconds
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Update DOM with leading zeros
+            document.getElementById('days').innerText = d.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+        }
+
+        // Run immediately and then every second
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
